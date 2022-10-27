@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import Button from './components/Button';
+
 export default function App() {
   const isError = true;
 
@@ -7,11 +9,7 @@ export default function App() {
     <View style={styles.container}>
       <Text style={styles.text}>RN Calc</Text>
       <Text style={[styles.text, isError && styles.error]}>RN Calc2</Text>
-      <Button
-        title="button"
-        color={'green'}
-        onPress={() => console.log('click')}
-      />
+      <Button color={'green'} onPress={() => console.log('click')} />
       <StatusBar style="auto" />
     </View>
   );
