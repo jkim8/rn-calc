@@ -1,18 +1,26 @@
-import { Pressable, Text } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 import propTypes from 'prop-types';
 
-const Button = ({ title }) => {
+export const ButtonTypes = {
+  NUMBER: 'NUMBER',
+  OPERATOR: 'OPERATOR',
+};
+
+const Colors = {
+  NUMBER: ['#71717a', '#3f3f46'],
+  OPERATOR: ['#f59e0b', '#b45309'],
+};
+
+const Button = ({ title, onPress, buttonStyle, buttonType }) => {
   return (
     <Pressable
-      onPressIn={() => console.log('in')}
-      onPressOut={() => console.log('Out')}
-      onPress={() => console.log('click!!')}
-      style={({ pressed }) => {
-        return [
-          { backgroundColor: 'red' },
-          pressed && { backgroundColor: 'orange', opacity: 0.3 },
-        ];
-      }}
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.button,
+        { backgroundColor: Colors[buttonType][0] },
+        pressed && { backgroundColor: Colors[buttonType][1] },
+        buttonStyle,
+      ]}
     >
       <Text>{title}</Text>
     </Pressable>
@@ -20,11 +28,19 @@ const Button = ({ title }) => {
 };
 
 Button.defaultProps = {
-  title: 'Default', //해당 props에 값을 전달 하지 않았을 때 default로 지정되는 값
+  buttonType: ButtonTypes.NUMBER,
 };
 
 Button.propTypes = {
   title: propTypes.string.isRequired,
+  onPress: propTypes.func.isRequired,
+  buttonStyle: propTypes.object,
+  buttonType: propTypes.oneOf(Object.values(ButtonTypes)),
 };
+
+const styles = StyleSheet.create({
+  button: { justifyContent: 'center', alignItems: 'center' },
+  title: { fontSize: 50, color: '#fffff' },
+});
 
 export default Button;
