@@ -9,7 +9,11 @@ export default function App() {
     <View style={styles.container}>
       <Text style={styles.text}>RN Calc</Text>
       <Text style={[styles.text, isError && styles.error]}>RN Calc2</Text>
-      <Button color={'green'} onPress={() => console.log('click')} />
+      <Button
+        title="button"
+        color={'green'}
+        onPress={() => console.log('click')}
+      />
       <StatusBar style="auto" />
     </View>
   );
