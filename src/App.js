@@ -13,7 +13,12 @@ export default function App() {
         <Text style={styles.result}>0</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <Text>button</Text>
+        <View style={styles.leftPad}>
+          <View style={styles.number}></View>
+          <View style={styles.bottom}></View>
+        </View>
+
+        <View style={styles.operator}></View>
       </View>
     </View>
   );
@@ -33,6 +38,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
-  buttonContainer: { backgroundColor: 'skyblue', flex: 1 },
+  buttonContainer: {
+    backgroundColor: 'skyblue',
+    flex: 1,
+    flexDirection: 'row',
+  },
   result: { color: '#ffffff', fontSize: 60, fontWeight: '700', padding: 30 },
+  leftPad: {},
+  number: {},
+  bottom: { flexDirection: 'row' },
+  operator: {},
 });
