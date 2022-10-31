@@ -8,28 +8,12 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 60 }}>{result}</Text>
-      <Button
-        title="+"
-        onPress={() => {
-          setResult(result + 1);
-          console.log(result);
-        }}
-        buttonStyle={{ width: 100, height: 100 }}
-        buttonType={ButtonTypes.OPERATOR}
-      />
-
-      <Button
-        title="+"
-        onPress={() => {
-          setResult((prev) => {
-            return prev + 1;
-          });
-          console.log(result);
-        }}
-        buttonStyle={{ width: 100, height: 100 }}
-        buttonType={ButtonTypes.OPERATOR}
-      />
+      <View style={styles.resultContainer}>
+        <Text style={styles.result}>0</Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <Text>button</Text>
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -38,13 +22,17 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    alignItems: 'stretch',
     justifyContent: 'center',
   },
 
-  error: {
-    fontSize: 40,
-    color: 'red',
+  resultContainer: {
+    flex: 1,
+    backgroundColor: '#000000',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
+  buttonContainer: { backgroundColor: 'skyblue', flex: 1 },
+  result: { color: '#ffffff', fontSize: 60, fontWeight: '700', padding: 30 },
 });
