@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export const ButtonTypes = {
   NUMBER: 'NUMBER',
@@ -12,7 +12,6 @@ const Colors = {
 };
 
 const Button = ({ title, onPress, buttonStyle, buttonType }) => {
-  console.log('re-rendering');
   return (
     <Pressable
       onPress={onPress}
@@ -23,7 +22,7 @@ const Button = ({ title, onPress, buttonStyle, buttonType }) => {
         buttonStyle,
       ]}
     >
-      <Text>{title}</Text>
+      <Text style={styles.title}>{title}</Text>
     </Pressable>
   );
 };
@@ -33,15 +32,21 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
-  title: propTypes.string.isRequired,
-  onPress: propTypes.func.isRequired,
-  buttonStyle: propTypes.object,
-  buttonType: propTypes.oneOf(Object.values(ButtonTypes)),
+  title: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
+  buttonStyle: PropTypes.object,
+  buttonType: PropTypes.oneOf(Object.values(ButtonTypes)),
 };
 
 const styles = StyleSheet.create({
-  button: { justifyContent: 'center', alignItems: 'center' },
-  title: { fontSize: 50, color: '#fffff' },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 50,
+    color: '#ffffff',
+  },
 });
 
 export default Button;

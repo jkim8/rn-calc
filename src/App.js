@@ -3,46 +3,73 @@ import { useState } from 'react';
 import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import Button, { ButtonTypes } from './components/Button';
 
+const Operators = {
+  CLEAR: 'C',
+  MINUS: '-',
+  PLUS: '+',
+  EQUAL: '=',
+};
+
 export default function App() {
   const [result, setResult] = useState(0);
+
   const width = (useWindowDimensions().width - 5) / 4;
-  // const { width } = useWindowDimensions();
-  console.log(width);
 
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
+
       <View style={styles.resultContainer}>
-        <Text style={styles.result}>0</Text>
+        <Text style={styles.result}>{result}</Text>
       </View>
+
       <View style={styles.buttonContainer}>
         <View style={styles.leftPad}>
           <View style={styles.number}>
-            <Button
-              title="1"
-              onPress={() => {}}
-              buttonStyle={{ width, height: width, marginBottom: 1 }}
-            ></Button>
-            <Button
-              title="2"
-              onPress={() => {}}
-              buttonStyle={{ width, height: width, marginBottom: 1 }}
-            ></Button>
-            <Button
-              title="3"
-              onPress={() => {}}
-              buttonStyle={{ width, height: width, marginBottom: 1 }}
-            ></Button>
-            <Button
-              title="4"
-              onPress={() => {}}
-              buttonStyle={{ width, height: width, marginBottom: 1 }}
-            ></Button>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+              <Button
+                title={num.toString()}
+                key={num}
+                onPress={() => {}}
+                buttonStyle={{ width, height: width, marginTop: 1 }}
+              />
+            ))}
           </View>
-          <View style={styles.bottom}></View>
+          <View style={styles.bottom}>
+            <Button
+              title="0"
+              onPress={() => {}}
+              buttonStyle={{ width: width * 2, height: width }}
+            />
+            <Button
+              title="="
+              onPress={() => {}}
+              buttonStyle={{ width, height: width }}
+              buttonType={ButtonTypes.OPERATOR}
+            />
+          </View>
         </View>
 
-        <View style={styles.operator}></View>
+        <View style={styles.operator}>
+          <Button
+            title={Operators.CLEAR}
+            onPress={() => {}}
+            buttonStyle={{ width, height: width, marginBottom: 1 }}
+            buttonType={ButtonTypes.OPERATOR}
+          />
+          <Button
+            title={Operators.MINUS}
+            onPress={() => {}}
+            buttonStyle={{ width, height: width, marginBottom: 1 }}
+            buttonType={ButtonTypes.OPERATOR}
+          />
+          <Button
+            title={Operators.PLUS}
+            onPress={() => {}}
+            buttonStyle={{ width, height: width * 2, marginBottom: 1 }}
+            buttonType={ButtonTypes.OPERATOR}
+          />
+        </View>
       </View>
     </View>
   );
@@ -51,24 +78,40 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    flexDirection: 'column',
     alignItems: 'stretch',
     justifyContent: 'center',
+    backgroundColor: '#ffffff',
   },
-
   resultContainer: {
     flex: 1,
-    backgroundColor: '#000000',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+    backgroundColor: '#000000',
   },
   buttonContainer: {
-    backgroundColor: 'skyblue',
     flexDirection: 'row',
+    backgroundColor: '#000000',
+    justifyContent: 'space-evenly',
   },
-  result: { color: '#ffffff', fontSize: 60, fontWeight: '700', padding: 30 },
-  leftPad: {},
-  number: {},
-  bottom: { flexDirection: 'row' },
+  result: {
+    color: '#ffffff',
+    fontSize: 60,
+    fontWeight: '700',
+    paddingBottom: 30,
+    paddingRight: 30,
+  },
+  leftPad: {
+    width: '75%',
+  },
+  number: {
+    flexDirection: 'row',
+    flexWrap: 'wrap-reverse',
+    justifyContent: 'space-evenly',
+  },
+  bottom: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
   operator: {},
 });
