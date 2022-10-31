@@ -8,13 +8,13 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       <View style={styles.resultContainer}>
         <Text style={styles.result}>0</Text>
       </View>
       <View style={styles.buttonContainer}>
         <Text>button</Text>
       </View>
-      <StatusBar style="auto" />
     </View>
   );
 }
