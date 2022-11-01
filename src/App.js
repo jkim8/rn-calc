@@ -12,15 +12,58 @@ const Operators = {
 
 export default function App() {
   const [result, setResult] = useState(0);
+  const [formula, setFomula] = useState([]);
+  console.log(formula);
 
   const width = (useWindowDimensions().width - 5) / 4;
+
+  const onPressNumber = (num) => {
+    const last = formula[formula.length - 1];
+
+    if (isNaN(last)) {
+      setResult(num);
+      setFomula((prev) => [...prev, num]);
+    } else {
+      const newNumber = (last ?? 0) * 10 + num;
+      setResult(newNumber);
+      setFomula((prev) => {
+        prev.pop();
+        return [...prev, newNumber];
+      });
+    }
+  };
+
+  const onPressOperator = (operator) => {
+    switch (operator) {
+      case Operators.CLEAR:
+        setResult(0);
+        setFomula([]);
+        break;
+      case Operators.EQUAL:
+        //TODO
+        break;
+      default: {
+        const last = formula[formula.length - 1];
+        if ([Operators.PLUS, Operators.MINUS].includes(last)) {
+          setFomula((prev) => {
+            prev.pop();
+            return [...prev, operator];
+          });
+        } else {
+          setFomula((prev) => [...prev, operator]);
+        }
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
 
       <View style={styles.resultContainer}>
-        <Text style={styles.result}>{result}</Text>
+        <Text style={styles.result}>
+          {result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+        </Text>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -28,22 +71,23 @@ export default function App() {
           <View style={styles.number}>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
               <Button
-                title={num.toString()}
                 key={num}
-                onPress={() => {}}
+                title={num.toString()}
+                onPress={() => onPressNumber(num)}
                 buttonStyle={{ width, height: width, marginTop: 1 }}
               />
             ))}
           </View>
+
           <View style={styles.bottom}>
             <Button
               title="0"
-              onPress={() => {}}
+              onPress={() => onPressNumber(0)}
               buttonStyle={{ width: width * 2, height: width }}
             />
             <Button
-              title="="
-              onPress={() => {}}
+              title={Operators.EQUAL}
+              onPress={() => onPressOperator(Operators.EQUAL)}
               buttonStyle={{ width, height: width }}
               buttonType={ButtonTypes.OPERATOR}
             />
@@ -53,19 +97,19 @@ export default function App() {
         <View style={styles.operator}>
           <Button
             title={Operators.CLEAR}
-            onPress={() => {}}
+            onPress={() => onPressOperator(Operators.CLEAR)}
             buttonStyle={{ width, height: width, marginBottom: 1 }}
             buttonType={ButtonTypes.OPERATOR}
           />
           <Button
             title={Operators.MINUS}
-            onPress={() => {}}
+            onPress={() => onPressOperator(Operators.MINUS)}
             buttonStyle={{ width, height: width, marginBottom: 1 }}
             buttonType={ButtonTypes.OPERATOR}
           />
           <Button
             title={Operators.PLUS}
-            onPress={() => {}}
+            onPress={() => onPressOperator(Operators.PLUS)}
             buttonStyle={{ width, height: width * 2, marginBottom: 1 }}
             buttonType={ButtonTypes.OPERATOR}
           />
